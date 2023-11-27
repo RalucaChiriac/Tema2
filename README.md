@@ -1,30 +1,13 @@
 # OOP Template
 
-### Tema 0
-
-- [ ] Nume proiect (poate fi schimbat ulterior)
-- [ ] Scurtă descriere a temei alese, ce v-ați propus să implementați
-
-## Tema 1
-
-#### Cerințe
-- [ ] definirea a minim **3-4 clase** folosind compunere
-- [ ] constructori de inițializare
-- [ ] pentru o clasă: constructor de copiere, `operator=` de copiere, destructor
-<!-- - [ ] pentru o altă clasă: constructor de mutare, `operator=` de mutare, destructor -->
-<!-- - [ ] pentru o altă clasă: toate cele 5 funcții membru speciale -->
-- [ ] `operator<<` pentru toate clasele pentru afișare (std::ostream)
-- [ ] cât mai multe `const` (unde este cazul)
-- [ ] implementarea a minim 3 funcții membru publice pentru funcționalități specifice temei alese
-- [ ] scenariu de utilizare a claselor definite:
-  - crearea de obiecte și apelarea tuturor funcțiilor membru publice în main
-  - vor fi adăugate în fișierul `tastatura.txt` exemple de date de intrare de la tastatură (dacă există)
-- [ ] tag de `git`: de exemplu `v0.1`
-- [ ] serviciu de integrare continuă (CI); exemplu: GitHub Actions
-
 ## Tema 2
 
-#### Cerințe
+
+### Nume: Gestiunea abonamentelor pentru un serviciu in cadrul unei firme.
+
+
+
+### Cerințe
 - [ ] separarea codului din clase în `.h` (sau `.hpp`) și `.cpp`
 - [ ] moșteniri:
   - minim o clasă de bază și **3 clase derivate**
@@ -46,16 +29,3 @@
 - [ ] la sfârșit: commit separat cu adăugarea unei noi clase derivate fără a modifica restul codului, pe lângă cele 3 derivate deja adăugate
   - noua derivată nu poate fi una existentă care a fost ștearsă și adăugată din nou
 - [ ] tag de `git`: de exemplu `v0.2`
-
-## Tema 3
-
-#### Cerințe
-- [ ] 2 șabloane de proiectare (design patterns)
-- [ ] o clasă șablon cu sens; minim **2 instanțieri**
-  - [ ] preferabil și o funcție șablon (template) cu sens; minim 2 instanțieri
-<!-- - [ ] o specializare pe funcție/clasă șablon -->
-- [ ] tag de `git`: de exemplu `v0.3` sau `v1.0`
-
-## Resurse
-
-- adăugați trimiteri către resursele externe care v-au ajutat sau pe care le-ați folosit
