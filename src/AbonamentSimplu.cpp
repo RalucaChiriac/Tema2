@@ -38,16 +38,12 @@ void AbonamentSimplu::calculeazaPret() const {
     if (pret < 0) {
         throw PretInvalidException();
     }
-    // Implementați logica de calculare a prețului pentru un abonament simplu
 }
 
 Abonament* AbonamentSimplu::clone() const {
     return new AbonamentSimplu(*this);
 }
 
-void AbonamentSimplu::functieStaticaSimpla() {
-    std::cout << "Aceasta este o functie statica din clasa AbonamentSimplu.\n";
-}
 
 int AbonamentSimplu::getNumarAbonamenteSimplu() {
     return numarAbonamenteSimplu;

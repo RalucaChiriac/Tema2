@@ -36,7 +36,6 @@ void AbonamentPremium::calculeazaPret() const {
     if (pret < 0) {
         throw PretInvalidException();
     }
-    // Implementați logica de calculare a prețului pentru un abonament premium
 }
 
 Abonament* AbonamentPremium::clone() const {

@@ -13,7 +13,6 @@ public:
     void afisareDetalii() const override;
     void calculeazaPret() const override;
     Abonament* clone() const override;
-    static void functieStaticaSimpla();
     static int getNumarAbonamenteSimplu();
 
 private:

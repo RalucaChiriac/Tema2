@@ -81,7 +81,7 @@ void ManagerClienti::listeazaClienti() const {
 void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbonament, float pretAbonament) {
     for (auto& client : clienti) {
         if (client->getNumeClient() == numeClient) {
-            delete client->getAbonament(); // Eliberăm memoria alocată pentru abonamentul existent
+            delete client->getAbonament();
 
             Abonament* abonament = nullptr;
             switch (tipAbonament) {
