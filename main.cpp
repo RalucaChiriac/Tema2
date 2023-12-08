@@ -18,6 +18,8 @@ int main() {
         std::cout << "6. Inchidere\n";
         std::cout << "Alegerea dumneavoastra: ";
         std::cin >> optiune;
+        for (int i=0;i<10;i++)
+            std::cout<<std::endl;
 
         switch (optiune) {
             case 1:
@@ -59,6 +61,9 @@ int main() {
                 std::cout << "Optiune invalida. Va rugam alegeti o optiune valida.\n";
                 break;
         }
+
+        for (int i=0;i<10;i++)
+            std::cout<<std::endl;
 
     } while (optiune != 6);
 

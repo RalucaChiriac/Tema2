@@ -13,11 +13,11 @@ public:
     const std::string& getCodClient() const;
     const Abonament* getAbonament() const;
 
-    void setAbonament(Abonament* abonament);
+    void setAbonament(Abonament* abonament1);
 
 private:
     std::string numeClient;
-    std::string codClient;
+    const std::string codClient;
     Abonament* abonament;
 };
 
