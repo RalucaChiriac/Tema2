@@ -4,6 +4,7 @@
 #include <iostream>
 #include "ManagerClienti.h"
 #include "MyExceptions.h"
+#include <memory>
 
 
 class ManagerClienti;
@@ -12,7 +13,7 @@ class Abonament {
 protected:
     float baza;
     int idClient;
-    ManagerClienti* manager;
+    std::unique_ptr<ManagerClienti> manager;
     float pret;
     static int numarAbonamente;
 
@@ -35,7 +36,7 @@ public:
     static int getter_AbonamenteTotale();
     float getVechime();
     void setter_manager ( ManagerClienti* man);
-    ManagerClienti* getter_manager();
+    std::unique_ptr<ManagerClienti>& getter_manager();
 
 
 };

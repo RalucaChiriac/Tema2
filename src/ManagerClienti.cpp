@@ -123,6 +123,7 @@ void ManagerClienti::stergeClient(const std::string& numeClient)
     }
 }
 
+
 void ManagerClienti::listeazaClienti() const
 {
     std::cout << "Lista de clienti:\n";
@@ -180,9 +181,9 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
                     return;
                 }
                 abonament->setter_manager(this);
-                abonament->calculeazaPret();
-                //delete abonament->getter_manager();
+                abonament->calculeazaPret(client.getVechime());
                 client.setAbonament(abonament);
+                //delete abonament;
                 std::cout << "Abonamentul pentru -- " << numeClient << " -- a fost schimbat cu succes.\n";
                 return;
             }
@@ -202,7 +203,7 @@ void ManagerClienti::reseteazaProgram()
     std::cout << "Programul a fost resetat cu succes.\n";
 }
 
-std::vector<Client> ManagerClienti::getterClienti() const
+std::vector<Client>& ManagerClienti::getterClienti()
 {
     return clienti;
 }

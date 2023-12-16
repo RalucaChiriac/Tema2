@@ -24,7 +24,6 @@ Abonament& Abonament::operator=(const Abonament& other) {
         baza = other.baza;
         idClient = other.idClient;
         pret = other.pret;
-        manager = other.manager;
     }
     return *this;
 }
@@ -36,6 +35,7 @@ Abonament::~Abonament() {
 float Abonament::getBaza() const {
     return baza;
 }
+
 void Abonament::setBaza(float bazaSetata)
 {
     this->baza = bazaSetata;
@@ -50,13 +50,12 @@ void Abonament::set_pret(float pret_setat)
     pret = pret_setat;
 }
 
-float Abonament::getVechime()
-{
+float Abonament::getVechime() {
     for (auto& client : manager->getterClienti()) {
         if (client.getId() == idClient) {
             return client.getVechime();
         }
-            }
+    }
     return 0.0;
 }
 
@@ -72,10 +71,10 @@ float Abonament::get_pret() const
 
 void Abonament::setter_manager(ManagerClienti* man)
 {
-    manager = man;
+   manager.reset(man);
 }
 
-ManagerClienti* Abonament::getter_manager()
+std::unique_ptr<ManagerClienti>& Abonament::getter_manager()
 {
     return manager;
 }

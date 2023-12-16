@@ -28,13 +28,15 @@ public:
     // Statistica abonamente
     void afiseazaStatistica() const;
 
-    std::vector<Client> getterClienti() const;
+    std::vector<Client>& getterClienti();
 
     // afiseaza meniul
     void afiseazaMeniu() const;
 
     ~ManagerClienti()
     {}
+
+    ManagerClienti(){};
 
 };
 
