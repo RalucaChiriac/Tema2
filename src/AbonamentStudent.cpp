@@ -37,7 +37,7 @@ void AbonamentStudent::calculeazaPret(float vechime)  {
 
     vechime = 0;
     if (numarLegitimatie % 10 == 1) {
-        pret = getBaza() - 0.1 * getBaza();
+        pret = getBaza() - 0.1 * getBaza() + vechime;
     } else if (numarLegitimatie % 10 == 2) {
         pret = getBaza() - 0.15 * getBaza();
     } else {

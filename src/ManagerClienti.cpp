@@ -136,10 +136,6 @@ void ManagerClienti::listeazaClienti() const
 
 void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbonament)
 {
-    float bazaSimplu = 13.03;
-    float bazaPremium = 21.56;
-    float bazaStudent = 13.0;
-
     try
     {
         for (auto& client : clienti)
@@ -152,11 +148,15 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
                 switch (tipAbonament)
                 {
                 case 1:
+                {
+                    float bazaSimplu = 13.03;
                     abonament = new AbonamentSimplu(bazaSimplu, client->getId());
                     break;
+                }
 
                 case 2:
                 {
+                    float bazaPremium = 21.56;
                     std::cout << "Doriti Support 24/7 ? Se percepe inca o taxa de 12 lei in plus! Raspuns: DA/NU"<<'\n';
                     std::string raspuns;
                     std::cin >> raspuns;
@@ -168,6 +168,7 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
                 }
                 case 3:
                 {
+                    float bazaStudent = 13.0;
                     std::cout << "Introduceti numarul Legitimatiei de Student: ( >0 )";
                     int numar;
                     std::cin >> numar;
