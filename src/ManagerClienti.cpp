@@ -50,13 +50,13 @@ void ManagerClienti::adaugaClient()
         {
         case 1:
         {
-            float bazaSimplu = 13.03;
+            float bazaSimplu = 13.03F;
             abonament = new AbonamentSimplu(bazaSimplu, codClient);
             break;
         }
         case 2:
         {
-            float bazaPremium = 21.56;
+            float bazaPremium = 21.56F;
             std::cout << "Doriti Support 24/7 ? Se percepe inca o taxa de 12 lei in plus! Raspuns: DA/NU"<<'\n';
             std::string raspuns;
             std::cin >> raspuns;
@@ -71,7 +71,7 @@ void ManagerClienti::adaugaClient()
             std::cout << "Introduceti numarul Legitimatiei de Student: ( >0 )";
             int numar;
             std::cin >> numar;
-            float bazaStudent = 13.0;
+            float bazaStudent = 13.0F;
             abonament = new AbonamentStudent(bazaStudent, codClient, numar);
             break;
         }
@@ -149,14 +149,14 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
                 {
                 case 1:
                 {
-                    float bazaSimplu = 13.03;
+                    float bazaSimplu = 13.03F;
                     abonament = new AbonamentSimplu(bazaSimplu, client->getId());
                     break;
                 }
 
                 case 2:
                 {
-                    float bazaPremium = 21.56;
+                    float bazaPremium = 21.56F;
                     std::cout << "Doriti Support 24/7 ? Se percepe inca o taxa de 12 lei in plus! Raspuns: DA/NU"<<'\n';
                     std::string raspuns;
                     std::cin >> raspuns;
@@ -168,7 +168,7 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
                 }
                 case 3:
                 {
-                    float bazaStudent = 13.0;
+                    float bazaStudent = 13.0F;
                     std::cout << "Introduceti numarul Legitimatiei de Student: ( >0 )";
                     int numar;
                     std::cin >> numar;

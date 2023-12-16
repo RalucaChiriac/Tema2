@@ -4,7 +4,8 @@
 #include "Client.h"
 #include <vector>
 
-class ManagerClienti {
+class ManagerClienti
+{
 private:
     std::vector<Client*> clienti;
 
@@ -31,6 +32,15 @@ public:
 
     // afiseaza meniul
     void afiseazaMeniu() const;
+
+    ~ManagerClienti()
+    {
+        for (const auto& client : clienti)
+        {
+            delete client; // Eliberam memoria alocata pentru fiecare client
+            //delete client->getAbonament();
+        }
+    }
 
 };
 
