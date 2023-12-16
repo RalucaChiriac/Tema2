@@ -53,8 +53,8 @@ void Abonament::set_pret(float pret_setat)
 float Abonament::getVechime()
 {
     for (auto& client : manager->getterClienti()) {
-        if (client->getId() == idClient) {
-            return client->getVechime();
+        if (client.getId() == idClient) {
+            return client.getVechime();
         }
             }
     return 0.0;

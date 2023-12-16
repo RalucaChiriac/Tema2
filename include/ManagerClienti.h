@@ -7,7 +7,7 @@
 class ManagerClienti
 {
 private:
-    std::vector<Client*> clienti;
+    std::vector<Client> clienti;
 
 public:
     // Adaugare client cu abonament
@@ -28,19 +28,13 @@ public:
     // Statistica abonamente
     void afiseazaStatistica() const;
 
-    std::vector<Client*> getterClienti() const;
+    std::vector<Client> getterClienti() const;
 
     // afiseaza meniul
     void afiseazaMeniu() const;
 
     ~ManagerClienti()
-    {
-        for (const auto& client : clienti)
-        {
-            delete client; // Eliberam memoria alocata pentru fiecare client
-            //delete client->getAbonament();
-        }
-    }
+    {}
 
 };
 

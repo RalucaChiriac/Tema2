@@ -82,7 +82,7 @@ void ManagerClienti::adaugaClient()
 
         abonament->calculeazaPret(vechime);
 
-        Client* client = new Client(numeClient, codClient, abonament, vechime);
+        Client client = Client(numeClient, codClient, abonament, vechime);
         clienti.push_back(client);
         std::cout<<'\n';
         std::cout<<'\n';
@@ -101,16 +101,16 @@ void ManagerClienti::adaugaClient()
 
 void ManagerClienti::stergeClient(const std::string& numeClient)
 {
-    auto it = std::remove_if(clienti.begin(), clienti.end(), [numeClient](const Client* client)
+    auto it = std::remove_if(clienti.begin(), clienti.end(), [numeClient](const Client client)
     {
-        return client->getNume() == numeClient;
+        return client.getNume() == numeClient;
     });
 
     try
     {
         if (it != clienti.end())
         {
-            delete *it; // Eliberam memoria alocata pentru client
+
             clienti.erase(it, clienti.end());
             std::cout << "Clientul a fost sters cu succes.\n";
         }
@@ -128,8 +128,8 @@ void ManagerClienti::listeazaClienti() const
     std::cout << "Lista de clienti:\n";
     for (const auto& client : clienti)
     {
-        std::cout << "Nume: " << client->getNume() << ", Cod: " << client->getId() << " , Vechime: "<<client->getVechime() << "\n";
-        client->getAbonament()->afisareDetalii();
+        std::cout << "Nume: " << client.getNume() << ", Cod: " << client.getId() << " , Vechime: "<<client.getVechime() << "\n";
+        client.getAbonament()->afisareDetalii();
         std::cout << "\n";
     }
 }
@@ -140,9 +140,9 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
     {
         for (auto& client : clienti)
         {
-            if (client->getNume() == numeClient)
+            if (client.getNume() == numeClient)
             {
-                delete client->getAbonament();
+                delete client.getAbonament();
 
                 Abonament* abonament = nullptr;
                 switch (tipAbonament)
@@ -150,7 +150,7 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
                 case 1:
                 {
                     float bazaSimplu = 13.03F;
-                    abonament = new AbonamentSimplu(bazaSimplu, client->getId());
+                    abonament = new AbonamentSimplu(bazaSimplu, client.getId());
                     break;
                 }
 
@@ -161,9 +161,9 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
                     std::string raspuns;
                     std::cin >> raspuns;
                     if (raspuns == "DA")
-                        abonament = new AbonamentPremium(bazaPremium, client->getId(), true);
+                        abonament = new AbonamentPremium(bazaPremium, client.getId(), true);
                     else
-                        abonament = new AbonamentPremium(bazaPremium, client->getId(), false);
+                        abonament = new AbonamentPremium(bazaPremium, client.getId(), false);
                     break;
                 }
                 case 3:
@@ -172,7 +172,7 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
                     std::cout << "Introduceti numarul Legitimatiei de Student: ( >0 )";
                     int numar;
                     std::cin >> numar;
-                    abonament = new AbonamentStudent(bazaStudent, client->getId(), numar);
+                    abonament = new AbonamentStudent(bazaStudent, client.getId(), numar);
                     break;
                 }
                 default:
@@ -181,7 +181,7 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
                 }
                 abonament->setter_manager(this);
                 abonament->calculeazaPret();
-                client->setAbonament(abonament);
+                client.setAbonament(abonament);
                 std::cout << "Abonamentul pentru -- " << numeClient << " -- a fost schimbat cu succes.\n";
                 return;
             }
@@ -196,15 +196,12 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
 
 void ManagerClienti::reseteazaProgram()
 {
-    for (const auto& client : clienti)
-    {
-        delete client; // Eliberam memoria alocata pentru fiecare client
-    }
+
     clienti.clear();
     std::cout << "Programul a fost resetat cu succes.\n";
 }
 
-std::vector<Client*> ManagerClienti::getterClienti() const
+std::vector<Client> ManagerClienti::getterClienti() const
 {
     return clienti;
 }
