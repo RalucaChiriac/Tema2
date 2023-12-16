@@ -2,8 +2,9 @@
 #define ABONAMENT_H_INCLUDED
 
 #include <iostream>
-#include "MyExceptions.h"
 #include "ManagerClienti.h"
+#include "MyExceptions.h"
+
 
 class ManagerClienti;
 
@@ -34,6 +35,7 @@ public:
     static int getter_AbonamenteTotale();
     float getVechime();
     void setter_manager ( ManagerClienti* man);
+    ManagerClienti* getter_manager();
 
 
 };

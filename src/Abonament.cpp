@@ -74,3 +74,8 @@ void Abonament::setter_manager(ManagerClienti* man)
 {
     manager = man;
 }
+
+ManagerClienti* Abonament::getter_manager()
+{
+    return manager;
+}

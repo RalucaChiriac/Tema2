@@ -181,6 +181,7 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
                 }
                 abonament->setter_manager(this);
                 abonament->calculeazaPret();
+                //delete abonament->getter_manager();
                 client.setAbonament(abonament);
                 std::cout << "Abonamentul pentru -- " << numeClient << " -- a fost schimbat cu succes.\n";
                 return;
