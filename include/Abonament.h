@@ -9,9 +9,9 @@ class ManagerClienti;
 
 class Abonament {
 protected:
-    ManagerClienti* manager;
     float baza;
     int idClient;
+    ManagerClienti* manager;
     float pret;
     static int numarAbonamente;
 

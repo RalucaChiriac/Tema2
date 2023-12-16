@@ -33,8 +33,9 @@ void AbonamentStudent::afisareDetalii() const {
     std::cout << "Numar legitimatie: " << numarLegitimatie << "\n";
 }
 
-void AbonamentStudent::calculeazaPret(float vechime = -1)  {
+void AbonamentStudent::calculeazaPret(float vechime)  {
 
+    vechime = 0;
     if (numarLegitimatie % 10 == 1) {
         pret = getBaza() - 0.1 * getBaza();
     } else if (numarLegitimatie % 10 == 2) {

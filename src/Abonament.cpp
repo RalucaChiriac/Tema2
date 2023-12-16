@@ -3,7 +3,7 @@
 
 int Abonament::numarAbonamente = 0;
 
-Abonament::Abonament(float baza, int idClient) : baza(baza), idClient(idClient), pret(0.0) {
+Abonament::Abonament(float baza, int idClient) : baza(baza), idClient(idClient), manager(nullptr), pret(0.0){
     if (baza < 0)
     {
         throw ExceptieNumar();
@@ -15,7 +15,7 @@ Abonament::Abonament(float baza, int idClient) : baza(baza), idClient(idClient),
     numarAbonamente++;
 }
 
-Abonament::Abonament(const Abonament& other) : baza(other.baza), idClient(other.idClient) {
+Abonament::Abonament(const Abonament& other) : baza(other.baza), idClient(other.idClient), manager(nullptr), pret(other.pret) {
     numarAbonamente++;
 }
 
@@ -23,6 +23,8 @@ Abonament& Abonament::operator=(const Abonament& other) {
     if (this != &other) {
         baza = other.baza;
         idClient = other.idClient;
+        pret = other.pret;
+        manager = other.manager;
     }
     return *this;
 }
