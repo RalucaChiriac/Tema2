@@ -84,6 +84,7 @@ void ManagerClienti::adaugaClient()
 
         Client client = Client(numeClient, codClient, abonament, vechime);
         clienti.push_back(client);
+        delete abonament;
         std::cout<<'\n';
         std::cout<<'\n';
         std::cout<<'\n';
