@@ -5,6 +5,9 @@
 #include <vector>
 
 class ManagerClienti {
+private:
+    std::vector<Client*> clienti;
+
 public:
     // Adaugare client cu abonament
     void adaugaClient();
@@ -16,13 +19,19 @@ public:
     void listeazaClienti() const;
 
     // Schimbare abonament pentru un client
-    void schimbaAbonament(const std::string& numeClient, int tipAbonament, float pretAbonament);
+    void schimbaAbonament(const std::string& numeClient, int tipAbonament);
 
     // Resetare program
-    void reseteazaProgram();
+    void reseteazaProgram() ;
 
-private:
-    std::vector<Client*> clienti;
+    // Statistica abonamente
+    void afiseazaStatistica() const;
+
+    std::vector<Client*> getterClienti() const;
+
+    // afiseaza meniul
+    void afiseazaMeniu() const;
+
 };
 
 #endif // MANAGERCLIENTI_H_INCLUDED

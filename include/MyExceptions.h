@@ -3,14 +3,36 @@
 
 #include <stdexcept>
 
-class PretInvalidException : public std::runtime_error {
+class ExceptieClient : public std::exception {
 public:
-    PretInvalidException() : std::runtime_error("Pretul abonamentului nu poate fi negativ.") {}
+    virtual const char* what() const noexcept override {
+        return "Exceptie client generica.";
+    }
 };
 
-class AbonamentNullException : public std::logic_error {
+// Exceptie pentru client inexistent.
+class ExceptieClientInexistent : public ExceptieClient {
 public:
-    AbonamentNullException() : std::logic_error("Abonamentul nu poate fi null.") {}
+    const char* what() const noexcept override {
+        return "Client inexistent.";
+    }
 };
+
+
+class ExceptieGenerala : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "Exceptie generala!";
+    }
+};
+
+
+class ExceptieNumar : public ExceptieGenerala {
+public:
+    const char* what() const noexcept override {
+        return "Numar nepotrivit! Reincercati!";
+    }
+};
+
 
 #endif // MYEXCEPTIONS_H_INCLUDED

@@ -3,27 +3,39 @@
 
 #include <iostream>
 #include "MyExceptions.h"
+#include "ManagerClienti.h"
+
+class ManagerClienti;
 
 class Abonament {
+protected:
+    ManagerClienti* manager;
+    float baza;
+    int idClient;
+    float pret;
+    static int numarAbonamente;
+
 public:
-    Abonament(const std::string& numeClient, const std::string& codClient);
+    Abonament(float baza, int idClient);
     Abonament(const Abonament& other);
     Abonament& operator=(const Abonament& other);
     virtual ~Abonament();
 
     virtual void afisareDetalii() const = 0;
-    virtual void calculeazaPret() const = 0;
+    virtual void calculeazaPret(float vechime = -1) = 0;
     virtual Abonament* clone() const = 0;
 
-    static void afiseazaInformatiiStatice();
-    static int getNumarAbonamenteActive();
+    int getIdClient() const;
+    float getBaza() const;
+    void setBaza(float bazaSetata);
 
-protected:
-    std::string numeClient;
-    std::string codClient;
+    void set_pret(float pret_setat);
+    float get_pret() const;
+    static int getter_AbonamenteTotale();
+    float getVechime();
+    void setter_manager ( ManagerClienti* man);
 
-private:
-    static int numarAbonamenteActive;
+
 };
 
 #endif // ABONAMENT_H_INCLUDED

@@ -5,20 +5,24 @@
 #include "Abonament.h"
 
 class Client {
+private:
+    std::string nume;
+    const int codClient;
+    Abonament* abonament;
+    float vechime;
+
 public:
-    Client(const std::string& numeClient, const std::string& codClient, Abonament* abonament);
+    Client(const std::string& nume, int codClient, Abonament* abonament, float vechime);
+    Client(const Client& other);
+    Client& operator=(const Client& other);
     ~Client();
 
-    const std::string& getNumeClient() const;
-    const std::string& getCodClient() const;
+    void setAbonament(Abonament* abon);
     const Abonament* getAbonament() const;
-
-    void setAbonament(Abonament* abonament1);
-
-private:
-    std::string numeClient;
-    const std::string codClient;
-    Abonament* abonament;
+    void eliminaAbonament();
+    float getVechime() const;
+    std::string getNume() const;
+    int getId() const;
 };
 
 #endif // CLIENT_H_INCLUDED

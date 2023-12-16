@@ -4,20 +4,21 @@
 #include "Abonament.h"
 
 class AbonamentSimplu : public Abonament {
+private:
+    static int numarAbonamenteSimplu;
+
 public:
-    AbonamentSimplu(const std::string& numeClient, const std::string& codClient, float pret);
+    AbonamentSimplu(float baza, int idClient);
     AbonamentSimplu(const AbonamentSimplu& other);
     AbonamentSimplu& operator=(const AbonamentSimplu& other);
     ~AbonamentSimplu() override;
 
     void afisareDetalii() const override;
-    void calculeazaPret() const override;
+    void calculeazaPret(float vechime) override;
     Abonament* clone() const override;
     static int getNumarAbonamenteSimplu();
 
-private:
-    float pret;
-    static int numarAbonamenteSimplu;
+
 };
 
 #endif // ABONAMENTSIMPLU_H_INCLUDED

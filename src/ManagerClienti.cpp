@@ -12,105 +12,203 @@
 #include <iostream>
 #include <algorithm>
 
+void ManagerClienti::afiseazaMeniu() const
+{
+    std::cout << "\nMeniu:\n";
+    std::cout << "1. Adaugare client (cu abonament)\n";
+    std::cout << "2. Stergere client\n";
+    std::cout << "3. Listare clienti\n";
+    std::cout << "4. Schimbare abonament pentru un client\n";
+    std::cout << "5. Statistica privind numarul abonamentelor\n";
+    std::cout << "6. Resetare program\n";
+    std::cout << "7. Inchidere\n";
+    std::cout << "Alegerea dumneavoastra: ";
+}
+
 void ManagerClienti::adaugaClient()
 {
     std::cout << "Introduceti numele clientului: ";
     std::string numeClient;
     std::cin >> numeClient;
 
-    std::cout << "Introduceti codul clientului: ";
-    std::string codClient;
+    std::cout << "Introduceti id-ul clientului: ";
+    int codClient;
     std::cin >> codClient;
+
+    std::cout << "Introduceti vechimea clientului: ";
+    float vechime;
+    std::cin >> vechime;
 
     std::cout << "Alegeti tipul de abonament (1. Simplu / 2. Premium / 3. Student): ";
     int tipAbonament;
     std::cin >> tipAbonament;
+    float bazaSimplu = 13.03;
+    float bazaPremium = 21.56;
+    float bazaStudent = 13.0;
 
     Abonament* abonament = nullptr;
-    float pretAbonament;
 
-    switch (tipAbonament) {
-        case 1:
-            std::cout << "Introduceti pretul abonamentului simplu: ";
-            std::cin >> pretAbonament;
-            abonament = new AbonamentSimplu(numeClient, codClient, pretAbonament);
-            break;
-        case 2:
-            std::cout << "Introduceti pretul abonamentului premium: ";
-            std::cin >> pretAbonament;
-            abonament = new AbonamentPremium(numeClient, codClient, pretAbonament);
-            break;
-        case 3:
-            std::cout << "Introduceti pretul abonamentului de student: ";
-            std::cin >> pretAbonament;
-            abonament = new AbonamentStudent(numeClient, codClient, pretAbonament);
-            break;
-        default:
-            std::cout << "Tip de abonament invalid.\n";
-            return;
+try{
+    switch (tipAbonament)
+    {
+    case 1:
+        abonament = new AbonamentSimplu(bazaSimplu, codClient);
+        break;
+    case 2:
+    {
+        std::cout << "Doriti Support 24/7 ? Se percepe inca o taxa de 12 lei in plus! Raspuns: DA/NU"<<'\n';
+        std::string raspuns;
+        std::cin >> raspuns;
+        if (raspuns == "DA")
+            abonament = new AbonamentPremium(bazaPremium, codClient, true);
+        else
+            abonament = new AbonamentPremium(bazaPremium, codClient, false);
+        break;
+    }
+    case 3:
+        std::cout << "Introduceti numarul Legitimatiei de Student: ( >0 )";
+        int numar;
+        std::cin >> numar;
+        abonament = new AbonamentStudent(bazaStudent, codClient, numar);
+        break;
+    default:
+        std::cout << "Tip de abonament invalid.\n";
+        return;
     }
 
-    Client* client = new Client(numeClient, codClient, abonament);
+    abonament->calculeazaPret(vechime);
+
+    Client* client = new Client(numeClient, codClient, abonament, vechime);
     clienti.push_back(client);
+    std::cout<<'\n';
+    std::cout<<'\n';
+    std::cout<<'\n';
     std::cout << "Clientul a fost adaugat cu succes.\n";
+
+    }
+    catch (const ExceptieNumar& e)
+    {
+        std::cerr<<'\n';
+        std::cerr << "Eroare: " << e.what() << std::endl;
+
+    }
+
 }
 
-void ManagerClienti::stergeClient(const std::string& numeClient) {
-    auto it = std::remove_if(clienti.begin(), clienti.end(), [numeClient](const Client* client) {
-        return client->getNumeClient() == numeClient;
+void ManagerClienti::stergeClient(const std::string& numeClient)
+{
+    auto it = std::remove_if(clienti.begin(), clienti.end(), [numeClient](const Client* client)
+    {
+        return client->getNume() == numeClient;
     });
 
-    if (it != clienti.end()) {
-        delete *it; // Eliberăm memoria alocată pentru client
+    try
+    {
+        if (it != clienti.end())
+        {
+        delete *it; // Eliberam memoria alocata pentru client
         clienti.erase(it, clienti.end());
         std::cout << "Clientul a fost sters cu succes.\n";
-    } else {
-        std::cout << "Clientul nu a fost gasit.\n";
+        }
+        else
+            throw ExceptieClientInexistent();
+    }
+    catch (const ExceptieClientInexistent& e)
+    {
+        std::cerr << "Eroare: " << e.what() << std::endl;
     }
 }
 
-void ManagerClienti::listeazaClienti() const {
+void ManagerClienti::listeazaClienti() const
+{
     std::cout << "Lista de clienti:\n";
-    for (const auto& client : clienti) {
-        std::cout << "Nume: " << client->getNumeClient() << ", Cod: " << client->getCodClient() << "\n";
+    for (const auto& client : clienti)
+    {
+        std::cout << "Nume: " << client->getNume() << ", Cod: " << client->getId() << " , Vechime: "<<client->getVechime() << "\n";
         client->getAbonament()->afisareDetalii();
         std::cout << "\n";
     }
 }
 
-void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbonament, float pretAbonament) {
-    for (auto& client : clienti) {
-        if (client->getNumeClient() == numeClient) {
-            delete client->getAbonament();
+void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbonament)
+{
+    float bazaSimplu = 13.03;
+    float bazaPremium = 21.56;
+    float bazaStudent = 13.0;
 
-            Abonament* abonament = nullptr;
-            switch (tipAbonament) {
+    try
+    {
+        for (auto& client : clienti)
+        {
+            if (client->getNume() == numeClient)
+            {
+                delete client->getAbonament();
+
+                Abonament* abonament = nullptr;
+                switch (tipAbonament)
+                {
                 case 1:
-                    abonament = new AbonamentSimplu(numeClient, client->getCodClient(), pretAbonament);
+                    abonament = new AbonamentSimplu(bazaSimplu, client->getId());
                     break;
+
                 case 2:
-                    abonament = new AbonamentPremium(numeClient, client->getCodClient(), pretAbonament);
+                {
+                    std::cout << "Doriti Support 24/7 ? Se percepe inca o taxa de 12 lei in plus! Raspuns: DA/NU"<<'\n';
+                    std::string raspuns;
+                    std::cin >> raspuns;
+                    if (raspuns == "DA")
+                        abonament = new AbonamentPremium(bazaPremium, client->getId(), true);
+                    else
+                        abonament = new AbonamentPremium(bazaPremium, client->getId(), false);
                     break;
+                }
                 case 3:
-                    abonament = new AbonamentStudent(numeClient, client->getCodClient(), pretAbonament);
+                {
+                    std::cout << "Introduceti numarul Legitimatiei de Student: ( >0 )";
+                    int numar;
+                    std::cin >> numar;
+                    abonament = new AbonamentStudent(bazaStudent, client->getId(), numar);
                     break;
+                }
                 default:
                     std::cout << "Tip de abonament invalid.\n";
                     return;
+                }
+                abonament->setter_manager(this);
+                abonament->calculeazaPret();
+                client->setAbonament(abonament);
+                std::cout << "Abonamentul pentru -- " << numeClient << " -- a fost schimbat cu succes.\n";
+                return;
             }
-
-            client->setAbonament(abonament);
-            std::cout << "Abonamentul pentru " << numeClient << " a fost schimbat cu succes.\n";
-            return;
         }
+        throw ExceptieClientInexistent();
     }
-    std::cout << "Clientul nu a fost gasit.\n";
+    catch (const ExceptieClientInexistent& e)
+    {
+        std::cerr << "Eroare: " << e.what() << std::endl;
+    }
 }
 
-void ManagerClienti::reseteazaProgram() {
-    for (const auto& client : clienti) {
-        delete client; // Eliberăm memoria alocată pentru fiecare client
+void ManagerClienti::reseteazaProgram()
+{
+    for (const auto& client : clienti)
+    {
+        delete client; // Eliberam memoria alocata pentru fiecare client
     }
     clienti.clear();
     std::cout << "Programul a fost resetat cu succes.\n";
+}
+
+std::vector<Client*> ManagerClienti::getterClienti() const
+{
+    return clienti;
+}
+
+void ManagerClienti::afiseazaStatistica() const
+{
+    std::cout<<"   Statistica: "<<"\n";
+    std::cout<<"Numar total de abonamente: "<<Abonament::getter_AbonamenteTotale()<<'\n';
+    std::cout<<"Numar de abonamente Simple: "<<AbonamentSimplu::getNumarAbonamenteSimplu()<<'\n';
+    std::cout<<"Numar de abonamente Premium: "<<AbonamentPremium::getNumarAbonamentePremium()<<'\n';
+    std::cout<<"Numar de abonamente de Student: "<<AbonamentStudent::getNumarAbonamenteStudent()<<'\n';
 }

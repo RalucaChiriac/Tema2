@@ -4,23 +4,18 @@
 
 int AbonamentSimplu::numarAbonamenteSimplu = 0;
 
-AbonamentSimplu::AbonamentSimplu(const std::string& numeClient, const std::string& codClient, float pret)
-    : Abonament(numeClient, codClient), pret(pret) {
-    if (pret < 0) {
-        throw PretInvalidException();
-    }
-    ++numarAbonamenteSimplu;
+AbonamentSimplu::AbonamentSimplu(float baza, int idClient) : Abonament(baza, idClient) {
+    numarAbonamenteSimplu++;
 }
 
 AbonamentSimplu::AbonamentSimplu(const AbonamentSimplu& other)
-    : Abonament(other), pret(other.pret) {
+    : Abonament(other) {
     ++numarAbonamenteSimplu;
 }
 
 AbonamentSimplu& AbonamentSimplu::operator=(const AbonamentSimplu& other) {
     if (this != &other) {
         Abonament::operator=(other);
-        pret = other.pret;
     }
     return *this;
 }
@@ -30,20 +25,21 @@ AbonamentSimplu::~AbonamentSimplu() {
 }
 
 void AbonamentSimplu::afisareDetalii() const {
-    std::cout << "Abonament simplu pentru " << numeClient << " (Cod client: " << codClient << ")\n";
-    std::cout << "Pret: " << pret << "\n";
+    std::cout << "Abonament simplu\n";
+    std::cout << "Pretul platit: " << get_pret() << "\n";
 }
 
-void AbonamentSimplu::calculeazaPret() const {
-    if (pret < 0) {
-        throw PretInvalidException();
-    }
+void AbonamentSimplu::calculeazaPret(float vechime = -1) {
+
+    if (vechime == -1)
+        pret = getBaza() - 0.4 * getVechime();
+    else
+        pret = getBaza() - 0.4 * vechime;
 }
 
 Abonament* AbonamentSimplu::clone() const {
     return new AbonamentSimplu(*this);
 }
-
 
 int AbonamentSimplu::getNumarAbonamenteSimplu() {
     return numarAbonamenteSimplu;

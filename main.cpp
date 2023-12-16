@@ -9,14 +9,8 @@ int main() {
 
     int optiune;
     do {
-        std::cout << "\nMeniu:\n";
-        std::cout << "1. Adaugare client (cu abonament)\n";
-        std::cout << "2. Stergere client\n";
-        std::cout << "3. Listare clienti\n";
-        std::cout << "4. Schimbare abonament pentru un client\n";
-        std::cout << "5. Resetare program\n";
-        std::cout << "6. Inchidere\n";
-        std::cout << "Alegerea dumneavoastra: ";
+
+        manager.afiseazaMeniu();
         std::cin >> optiune;
         for (int i=0;i<10;i++)
             std::cout<<std::endl;
@@ -44,19 +38,23 @@ int main() {
                 int tipAbonament;
                 std::cin >> tipAbonament;
 
-                float pretAbonament;
-                std::cout << "Introduceti pretul abonamentului: ";
-                std::cin >> pretAbonament;
-
-                manager.schimbaAbonament(numeClient, tipAbonament, pretAbonament);
+                manager.schimbaAbonament(numeClient, tipAbonament);
                 break;
             }
+
             case 5:
+                {
+                    manager.afiseazaStatistica();
+                    break;
+                }
+
+            case 6:
                 manager.reseteazaProgram();
                 break;
-            case 6:
+            case 7:
                 std::cout << "Programul se inchide.\n";
                 break;
+
             default:
                 std::cout << "Optiune invalida. Va rugam alegeti o optiune valida.\n";
                 break;
@@ -65,7 +63,7 @@ int main() {
         for (int i=0;i<10;i++)
             std::cout<<std::endl;
 
-    } while (optiune != 6);
+    } while (optiune != 7);
 
     return 0;
 }

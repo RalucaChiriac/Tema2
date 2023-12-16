@@ -2,23 +2,23 @@
 
 int AbonamentStudent::numarAbonamenteStudent = 0;
 
-AbonamentStudent::AbonamentStudent(const std::string& numeClient, const std::string& codClient, float pret)
-    : Abonament(numeClient, codClient), pret(pret) {
-    if (pret < 0) {
-        throw PretInvalidException();
+AbonamentStudent::AbonamentStudent(float baza, int idClient, int numarLegitimatie)
+    : Abonament(baza, idClient), numarLegitimatie(numarLegitimatie) {
+    if (numarLegitimatie> 1000) {
+        throw ExceptieNumar();
     }
     ++numarAbonamenteStudent;
 }
 
 AbonamentStudent::AbonamentStudent(const AbonamentStudent& other)
-    : Abonament(other), pret(other.pret) {
+    : Abonament(other), numarLegitimatie(other.numarLegitimatie) {
     ++numarAbonamenteStudent;
 }
 
 AbonamentStudent& AbonamentStudent::operator=(const AbonamentStudent& other) {
     if (this != &other) {
         Abonament::operator=(other);
-        pret = other.pret;
+        numarLegitimatie = other.numarLegitimatie;
     }
     return *this;
 }
@@ -28,15 +28,20 @@ AbonamentStudent::~AbonamentStudent() {
 }
 
 void AbonamentStudent::afisareDetalii() const {
-    std::cout << "Abonament student pentru " << numeClient << " (Cod client: " << codClient << ")\n";
-    std::cout << "Pret: " << pret << "\n";
+    std::cout << "Abonament student\n";
+    std::cout << "Pretul platit: " << get_pret() << "\n";
+    std::cout << "Numar legitimatie: " << numarLegitimatie << "\n";
 }
 
-void AbonamentStudent::calculeazaPret() const {
-    if (pret < 0) {
-        throw PretInvalidException();
+void AbonamentStudent::calculeazaPret(float vechime = -1)  {
+
+    if (numarLegitimatie % 10 == 1) {
+        pret = getBaza() - 0.1 * getBaza();
+    } else if (numarLegitimatie % 10 == 2) {
+        pret = getBaza() - 0.15 * getBaza();
+    } else {
+        pret = getBaza();
     }
-    // Implementați logica de calculare a prețului pentru un abonament de student
 }
 
 Abonament* AbonamentStudent::clone() const {
