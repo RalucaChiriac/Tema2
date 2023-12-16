@@ -101,7 +101,7 @@ void ManagerClienti::adaugaClient()
 
 void ManagerClienti::stergeClient(const std::string& numeClient)
 {
-    auto it = std::remove_if(clienti.begin(), clienti.end(), [numeClient](const Client client)
+    auto it = std::remove_if(clienti.begin(), clienti.end(), [numeClient](const Client& client)
     {
         return client.getNume() == numeClient;
     });

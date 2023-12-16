@@ -1,6 +1,6 @@
 #include "../include/Client.h"
 
-Client::Client(const std::string& nume, int codClient, Abonament* abonament, float vechime) : nume(nume), codClient(codClient), abonament(abonament->clone()), vechime(vechime)
+Client::Client(const std::string& nume, int codClient, Abonament* abonament, float vechime) : nume(nume), codClient(codClient), vechime(vechime), abonament(abonament)
 {
     if (vechime < 0)
     {
@@ -12,17 +12,8 @@ Client::Client(const std::string& nume, int codClient, Abonament* abonament, flo
     }
 }
 
-Client::Client(const Client& other) : nume(other.nume), codClient(other.codClient), vechime(other.vechime)
-{
-    if (other.abonament)
-    {
-        abonament = other.abonament->clone();
-    }
-    else
-    {
-        abonament = nullptr;
-    }
-}
+Client::Client(const Client& other) : nume(other.nume), codClient(other.codClient), vechime(other.vechime), abonament(other.abonament)
+{}
 
 Client& Client::operator=(const Client& other)
 {
