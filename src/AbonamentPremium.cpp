@@ -3,59 +3,66 @@
 int AbonamentPremium::numarAbonamentePremium = 0;
 
 AbonamentPremium::AbonamentPremium(float baza, int idClient, bool serviciuSupport)
-    : Abonament(baza, idClient), serviciuSupport(serviciuSupport) {
+    : Abonament(baza, idClient), serviciuSupport(serviciuSupport)
+{
     ++numarAbonamentePremium;
 }
 
 AbonamentPremium::AbonamentPremium(const AbonamentPremium& other)
-    : Abonament(other), serviciuSupport(other.serviciuSupport) {
+    : Abonament(other), serviciuSupport(other.serviciuSupport)
+{
     ++numarAbonamentePremium;
 }
 
-AbonamentPremium& AbonamentPremium::operator=(const AbonamentPremium& other) {
-    if (this != &other) {
+AbonamentPremium& AbonamentPremium::operator=(const AbonamentPremium& other)
+{
+    if (this != &other)
+    {
         Abonament::operator=(other);
         serviciuSupport = other.serviciuSupport;
     }
     return *this;
 }
 
-AbonamentPremium::~AbonamentPremium() {
+AbonamentPremium::~AbonamentPremium()
+{
     --numarAbonamentePremium;
 }
 
-void AbonamentPremium::afisareDetalii() const {
-    std::cout << "Abonament premium\n";
-    std::cout << "Pretul platit: " << get_pret() << "\n";
+void AbonamentPremium::afisareDetalii() const
+{
+    afisareTip();
+    std::cout << "Pretul platit: " << pret << "\n";
     std::cout << "Serviciu support 24/7: " << (serviciuSupport ? "Da" : "Nu") << "\n";
 }
 
-void AbonamentPremium::calculeazaPret(float vechime = -1) {
+void AbonamentPremium::calculeazaPret(float vechime = -1)
+{
 
-    if (vechime == -1)
-     {
-        if (serviciuSupport) {
-            pret = getBaza() - 0.5 * getVechime() + 12;
-        }
-        else {
-            pret = getBaza() - 0.5 * getVechime();
-        }
-     }
-     else
-     {
-         if (serviciuSupport) {
-            pret = getBaza() - 0.5 * vechime + 12;
-        }
-        else {
-            pret = getBaza() - 0.5 * vechime;
-        }
-     }
+    if(vechime == -1)
+        vechime = getVechime(this->idClient);
+
+    if (serviciuSupport)
+    {
+        pret = baza - 0.5 * vechime + 12;
+    }
+    else
+    {
+        pret = baza - 0.5 * vechime;
+    }
 }
 
-Abonament* AbonamentPremium::clone() const {
+Abonament* AbonamentPremium::clone() const
+{
     return new AbonamentPremium(*this);
 }
 
-int AbonamentPremium::getNumarAbonamentePremium() {
+int AbonamentPremium::getNumarAbonamentePremium()
+{
     return numarAbonamentePremium;
+}
+
+void AbonamentPremium::afisareTip() const
+{
+    std::cout<<"Tip: Abonament Premium"<<std::endl;
 }

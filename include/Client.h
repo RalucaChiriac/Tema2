@@ -19,7 +19,6 @@ public:
 
     void setAbonament(Abonament* abon);
     const Abonament* getAbonament() const;
-    void eliminaAbonament();
     float getVechime() const;
     std::string getNume() const;
     int getId() const;

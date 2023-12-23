@@ -28,25 +28,31 @@ AbonamentStudent::~AbonamentStudent() {
 }
 
 void AbonamentStudent::afisareDetalii() const {
-    std::cout << "Abonament student\n";
-    std::cout << "Pretul platit: " << get_pret() << "\n";
+    afisareTip();
+    std::cout << "Pretul platit: " << pret << "\n";
     std::cout << "Numar legitimatie: " << numarLegitimatie << "\n";
 }
 
 void AbonamentStudent::calculeazaPret(float vechime)  {
 
+    float varLocalBaza = baza;
     vechime = 0;
     if (numarLegitimatie % 10 == 1) {
-        pret = getBaza() - 0.1 * getBaza() + vechime;
+        pret = 0.9 * varLocalBaza + vechime;
     } else if (numarLegitimatie % 10 == 2) {
-        pret = getBaza() - 0.15 * getBaza();
+        pret = varLocalBaza * 0.85;
     } else {
-        pret = getBaza();
+        pret = varLocalBaza;
     }
 }
 
 Abonament* AbonamentStudent::clone() const {
     return new AbonamentStudent(*this);
+}
+
+void AbonamentStudent::afisareTip() const
+{
+    std::cout<<"Tip: Abonament Student"<<std::endl;
 }
 
 int AbonamentStudent::getNumarAbonamenteStudent() {

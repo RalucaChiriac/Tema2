@@ -3,7 +3,16 @@
 
 #include <stdexcept>
 
-class ExceptieClient : public std::exception {
+
+class ExceptieGenerala : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "Exceptie generala!";
+    }
+};
+
+
+class ExceptieClient : public ExceptieGenerala {
 public:
     virtual const char* what() const noexcept override {
         return "Exceptie client generica.";
@@ -19,14 +28,6 @@ public:
 };
 
 
-class ExceptieGenerala : public std::exception {
-public:
-    const char* what() const noexcept override {
-        return "Exceptie generala!";
-    }
-};
-
-
 class ExceptieNumar : public ExceptieGenerala {
 public:
     const char* what() const noexcept override {
@@ -34,5 +35,18 @@ public:
     }
 };
 
+class ExceptieVechime : public ExceptieGenerala {
+public:
+    const char* what() const noexcept override {
+        return "Exceptie vechime! Reincercati!";
+    }
+};
+
+class ExceptieManagerInexistent : public ExceptieGenerala {
+public:
+    const char* what() const noexcept override {
+        return "Manager nesetat! Reincercati!";
+    }
+};
 
 #endif // MYEXCEPTIONS_H_INCLUDED

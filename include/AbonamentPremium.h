@@ -8,6 +8,9 @@ private:
     bool serviciuSupport;
     static int numarAbonamentePremium;
 
+protected:
+    void afisareTip() const override;
+
 public:
     AbonamentPremium(float baza, int idClient, bool serviciuSupport);
     AbonamentPremium(const AbonamentPremium& other);

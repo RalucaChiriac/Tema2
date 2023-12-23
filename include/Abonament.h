@@ -13,9 +13,10 @@ class Abonament {
 protected:
     float baza;
     int idClient;
-    std::unique_ptr<ManagerClienti> manager;
+    std::shared_ptr<ManagerClienti> manager;
     float pret;
     static int numarAbonamente;
+    virtual void afisareTip() const = 0;
 
 public:
     Abonament(float baza, int idClient);
@@ -27,17 +28,9 @@ public:
     virtual void calculeazaPret(float vechime = -1) = 0;
     virtual Abonament* clone() const = 0;
 
-    int getIdClient() const;
-    float getBaza() const;
-    void setBaza(float bazaSetata);
-
-    void set_pret(float pret_setat);
-    float get_pret() const;
     static int getter_AbonamenteTotale();
-    float getVechime();
-    void setter_manager ( ManagerClienti* man);
-    std::unique_ptr<ManagerClienti>& getter_manager();
-
+    float getVechime(int codClient);
+    void setter_manager (ManagerClienti* man);
 
 };
 

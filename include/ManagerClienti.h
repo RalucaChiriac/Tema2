@@ -30,13 +30,15 @@ public:
 
     std::vector<Client>& getterClienti();
 
+    Client& getterClient(int codClient);
+
     // afiseaza meniul
     void afiseazaMeniu() const;
 
     ~ManagerClienti()
     {}
 
-    ManagerClienti(){};
+    ManagerClienti() {}
 
 };
 

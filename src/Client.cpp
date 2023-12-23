@@ -20,7 +20,7 @@ Client::Client(const Client& other) : nume(other.nume), codClient(other.codClien
     }
     else
     {
-        abonament = nullptr;
+        abonament = NULL;
     }
 }
 
@@ -31,14 +31,13 @@ Client& Client::operator=(const Client& other)
         nume = other.nume;
         vechime = other.vechime;
 
-        abonament = nullptr;
         if (other.abonament)
         {
             abonament = other.abonament->clone();
         }
         else
         {
-            abonament = nullptr;
+            abonament = NULL;
         }
     }
     return *this;
@@ -51,18 +50,12 @@ Client::~Client()
 
 void Client::setAbonament(Abonament* abon)
 {
-    abonament = abon;
+    abonament = abon->clone();
 }
 
 const Abonament* Client::getAbonament() const
 {
     return abonament;
-}
-
-void Client::eliminaAbonament()
-{
-    delete abonament;
-    abonament = nullptr;
 }
 
 float Client::getVechime() const

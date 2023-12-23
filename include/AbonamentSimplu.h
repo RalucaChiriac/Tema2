@@ -14,6 +14,7 @@ public:
     ~AbonamentSimplu() override;
 
     void afisareDetalii() const override;
+    void afisareTip() const override;
     void calculeazaPret(float vechime) override;
     Abonament* clone() const override;
     static int getNumarAbonamenteSimplu();

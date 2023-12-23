@@ -24,21 +24,27 @@ AbonamentSimplu::~AbonamentSimplu() {
     --numarAbonamenteSimplu;
 }
 
+
 void AbonamentSimplu::afisareDetalii() const {
-    std::cout << "Abonament simplu\n";
-    std::cout << "Pretul platit: " << get_pret() << "\n";
+    afisareTip();
+    std::cout << "Pretul platit: " << pret << "\n";
 }
 
 void AbonamentSimplu::calculeazaPret(float vechime = -1) {
 
     if (vechime == -1)
-        pret = getBaza() - 0.4 * getVechime();
+        pret = baza - 0.4 * getVechime(this->idClient);
     else
-        pret = getBaza() - 0.4 * vechime;
+        pret = baza - 0.4 * vechime;
 }
 
 Abonament* AbonamentSimplu::clone() const {
     return new AbonamentSimplu(*this);
+}
+
+void AbonamentSimplu::afisareTip() const
+{
+    std::cout<<"Tip: Abonament Simplu"<<std::endl;
 }
 
 int AbonamentSimplu::getNumarAbonamenteSimplu() {
