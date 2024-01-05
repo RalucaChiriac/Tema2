@@ -46,6 +46,7 @@ void ManagerClienti::adaugaClient()
 
     switch (tipAbonament)
     {
+
     case 1:
     {
         float bazaSimplu = 13.03F;
@@ -77,11 +78,12 @@ void ManagerClienti::adaugaClient()
         std::cout << "Tip de abonament invalid.\n";
         return;
     }
+    abonament->setter_manager(this);
     abonament->calculeazaPret(vechime);
 
     Client client = Client(numeClient, codClient, abonament, vechime);
     clienti.push_back(client);
-    delete abonament;
+    //delete abonament;
     std::cout<<'\n';
     std::cout<<'\n';
     std::cout<<'\n';
@@ -111,14 +113,13 @@ void ManagerClienti::listeazaClienti() const
     std::cout << "Lista de clienti:\n";
     for (const auto& client : clienti)
     {
-        std::cout << "Nume: " << client.getNume() << ", Cod: " << client.getId() << " , Vechime: "<<client.getVechime() << "\n";
-        client.getAbonament()->afisareDetalii();
+        std::cout<<client;
         std::cout << "\n";
     }
 }
 
 
-Client& ManagerClienti::getterClient(int codClient)
+Client& ManagerClienti::findClient(int codClient)
 {
     for (auto& client : clienti)
     {
@@ -138,8 +139,6 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
     {
         if (client.getNume() == numeClient)
         {
-            //delete client.getAbonament();
-            //std::cout<<"Debugger"<<std::endl;
             Abonament* abonament = nullptr;
             switch (tipAbonament)
             {
@@ -178,7 +177,6 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
             abonament->setter_manager(this);
             abonament->calculeazaPret(client.getVechime());
             client.setAbonament(abonament);
-            //delete abonament;
 
             std::cout << "Abonamentul pentru -- " << numeClient << " -- a fost schimbat cu succes.\n";
             return;

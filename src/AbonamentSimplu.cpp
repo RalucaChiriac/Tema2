@@ -30,9 +30,9 @@ void AbonamentSimplu::afisareDetalii() const {
     std::cout << "Pretul platit: " << pret << "\n";
 }
 
-void AbonamentSimplu::calculeazaPret(float vechime = -1) {
+void AbonamentSimplu::calculeazaPret(float vechime = -1000000.0121F) {
 
-    if (vechime == -1)
+    if (vechime == -1000000.0121F)
         pret = baza - 0.4 * getVechime(this->idClient);
     else
         pret = baza - 0.4 * vechime;

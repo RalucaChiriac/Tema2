@@ -53,11 +53,6 @@ void Client::setAbonament(Abonament* abon)
     abonament = abon->clone();
 }
 
-const Abonament* Client::getAbonament() const
-{
-    return abonament;
-}
-
 float Client::getVechime() const
 {
     return vechime;

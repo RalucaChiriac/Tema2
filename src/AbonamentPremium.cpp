@@ -36,10 +36,10 @@ void AbonamentPremium::afisareDetalii() const
     std::cout << "Serviciu support 24/7: " << (serviciuSupport ? "Da" : "Nu") << "\n";
 }
 
-void AbonamentPremium::calculeazaPret(float vechime = -1)
+void AbonamentPremium::calculeazaPret(float vechime = -1000000.0121F)
 {
 
-    if(vechime == -1)
+    if(vechime == -1000000.0121F)
         vechime = getVechime(this->idClient);
 
     if (serviciuSupport)

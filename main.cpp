@@ -13,33 +13,36 @@ int main()
     {
         manager.afiseazaMeniu();
         std::cin >> optiune;
-        if (optiune<1 || optiune > 7)
-        {
-            std::cout<<"Introduceti va rugam o optiune valida!"<<std::endl;
-            exit(-1);
-        }
+
+
         for (int i=0; i<10; i++)
             std::cout<<std::endl;
 
-        switch (optiune)
+        try
         {
-        case 1:
-        {
-            try
+            if (std::cin.fail())
+            {
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                std::cout << "Va rugam introduceti un numar valabil!" << std::endl;
+                continue;
+            }
+            if (optiune<1 || optiune > 7)
+            {
+                std::cout<<"Introduceti va rugam o optiune valida!"<<std::endl;
+                continue;
+            }
+
+            switch (optiune)
+            {
+            case 1:
             {
                 manager.adaugaClient();
                 break;
             }
-            catch (const ExceptieGenerala& e)
-            {
-                std::cerr << "\n\nEroare: " << e.what() << std::endl;
-                break;
-            }
-        }
 
-        case 2:
-        {
-            try
+            case 2:
             {
                 std::cout << "Introduceti numele clientului de sters: ";
                 std::string numeClient;
@@ -47,20 +50,12 @@ int main()
                 manager.stergeClient(numeClient);
                 break;
             }
-            catch (const ExceptieGenerala& e)
-            {
-                std::cerr << "\n\nEroare: " << e.what() << std::endl;
+
+            case 3:
+                manager.listeazaClienti();
                 break;
-            }
-        }
 
-        case 3:
-            manager.listeazaClienti();
-            break;
-
-        case 4:
-        {
-            try
+            case 4:
             {
                 std::cout << "Introduceti numele clientului pentru schimbare abonament: ";
                 std::string numeClient;
@@ -73,29 +68,29 @@ int main()
                 manager.schimbaAbonament(numeClient, tipAbonament);
                 break;
             }
-            catch (const ExceptieGenerala& e)
+
+            case 5:
             {
-                std::cerr << "\n\nEroare: " << e.what() << std::endl;
+                manager.afiseazaStatistica();
+                break;
+            }
+
+            case 6:
+                manager.reseteazaProgram();
+                break;
+            case 7:
+                std::cout << "Programul se inchide.\n";
+                break;
+
+            default:
+                std::cout << "Optiune invalida. Va rugam alegeti o optiune valida.\n";
                 break;
             }
         }
-
-        case 5:
+        catch (const ExceptieGenerala& e)
         {
-            manager.afiseazaStatistica();
-            break;
-        }
-
-        case 6:
-            manager.reseteazaProgram();
-            break;
-        case 7:
-            std::cout << "Programul se inchide.\n";
-            break;
-
-        default:
-            std::cout << "Optiune invalida. Va rugam alegeti o optiune valida.\n";
-            break;
+            std::cerr << "\n\nEroare: " << e.what() << std::endl;
+            continue;
         }
 
         for (int i=0; i<10; i++)

@@ -17,8 +17,13 @@ public:
     Client& operator=(const Client& other);
     ~Client();
 
+    friend std::ostream& operator<<(std::ostream& os, const Client& st) {
+        os << "Nume: " << st.getNume() << ", Cod: " << st.getId() << " , Vechime: "<<st.getVechime() << "\n";
+        os <<*st.abonament;
+        return os;
+    }
+
     void setAbonament(Abonament* abon);
-    const Abonament* getAbonament() const;
     float getVechime() const;
     std::string getNume() const;
     int getId() const;

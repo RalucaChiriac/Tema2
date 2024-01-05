@@ -24,6 +24,11 @@ public:
     Abonament& operator=(const Abonament& other);
     virtual ~Abonament();
 
+    friend std::ostream& operator<<(std::ostream& os, const Abonament& st) {
+        st.afisareDetalii();
+        return os;
+    }
+
     virtual void afisareDetalii() const = 0;
     virtual void calculeazaPret(float vechime = -1) = 0;
     virtual Abonament* clone() const = 0;
@@ -31,6 +36,7 @@ public:
     static int getter_AbonamenteTotale();
     float getVechime(int codClient);
     void setter_manager (ManagerClienti* man);
+    int getter_idClient();
 
 };
 

@@ -30,7 +30,7 @@ public:
 
     std::vector<Client>& getterClienti();
 
-    Client& getterClient(int codClient);
+    Client& findClient(int codClient);
 
     // afiseaza meniul
     void afiseazaMeniu() const;

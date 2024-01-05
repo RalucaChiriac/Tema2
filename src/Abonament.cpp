@@ -35,7 +35,7 @@ Abonament::~Abonament() {
 float Abonament::getVechime(int codClient) {
 
     if (manager!=NULL)
-        return manager->getterClient(codClient).getVechime();
+        return manager->findClient(codClient).getVechime();
     else
     {
         throw ExceptieManagerInexistent();
@@ -52,4 +52,9 @@ void Abonament::setter_manager(ManagerClienti* man)
 {
    std::shared_ptr<ManagerClienti> my_ptr(man);
    manager = my_ptr;
+}
+
+int Abonament::getter_idClient()
+{
+    return idClient;
 }
