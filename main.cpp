@@ -3,6 +3,7 @@
 #include "include/AbonamentSimplu.h"
 #include "include/AbonamentPremium.h"
 #include "include/AbonamentStudent.h"
+#include <limits>
 
 int main()
 {

@@ -12,36 +12,9 @@
 #include <iostream>
 #include <algorithm>
 
-void ManagerClienti::afiseazaMeniu() const
+Abonament* getAbonamentSample(int tipAbonament, int codClient)
 {
-    std::cout << "\nMeniu:\n";
-    std::cout << "1. Adaugare client (cu abonament)\n";
-    std::cout << "2. Stergere client\n";
-    std::cout << "3. Listare clienti\n";
-    std::cout << "4. Schimbare abonament pentru un client\n";
-    std::cout << "5. Statistica privind numarul abonamentelor\n";
-    std::cout << "6. Resetare program\n";
-    std::cout << "7. Inchidere\n";
-    std::cout << "Alegerea dumneavoastra: ";
-}
 
-void ManagerClienti::adaugaClient()
-{
-    std::cout << "Introduceti numele clientului: ";
-    std::string numeClient;
-    std::cin >> numeClient;
-
-    std::cout << "Introduceti id-ul clientului: ";
-    int codClient;
-    std::cin >> codClient;
-
-    std::cout << "Introduceti vechimea clientului: ";
-    float vechime;
-    std::cin >> vechime;
-
-    std::cout << "Alegeti tipul de abonament (1. Simplu / 2. Premium / 3. Student): ";
-    int tipAbonament;
-    std::cin >> tipAbonament;
     Abonament* abonament = nullptr;
 
     switch (tipAbonament)
@@ -76,8 +49,47 @@ void ManagerClienti::adaugaClient()
     }
     default:
         std::cout << "Tip de abonament invalid.\n";
-        return;
+        break;
     }
+    return abonament;
+}
+
+
+
+
+void ManagerClienti::afiseazaMeniu() const
+{
+    std::cout << "\nMeniu:\n";
+    std::cout << "1. Adaugare client (cu abonament)\n";
+    std::cout << "2. Stergere client\n";
+    std::cout << "3. Listare clienti\n";
+    std::cout << "4. Schimbare abonament pentru un client\n";
+    std::cout << "5. Statistica privind numarul abonamentelor\n";
+    std::cout << "6. Resetare program\n";
+    std::cout << "7. Inchidere\n";
+    std::cout << "Alegerea dumneavoastra: ";
+}
+
+void ManagerClienti::adaugaClient()
+{
+    std::cout << "Introduceti numele clientului: ";
+    std::string numeClient;
+    std::cin >> numeClient;
+
+    std::cout << "Introduceti id-ul clientului: ";
+    int codClient;
+    std::cin >> codClient;
+
+    std::cout << "Introduceti vechimea clientului: ";
+    float vechime;
+    std::cin >> vechime;
+
+    std::cout << "Alegeti tipul de abonament (1. Simplu / 2. Premium / 3. Student): ";
+    int tipAbonament;
+    std::cin >> tipAbonament;
+
+    Abonament* abonament = getAbonamentSample(tipAbonament, codClient);
+
     abonament->setter_manager(this);
     abonament->calculeazaPret(vechime);
 
@@ -139,41 +151,8 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
     {
         if (client.getNume() == numeClient)
         {
-            Abonament* abonament = nullptr;
-            switch (tipAbonament)
-            {
-            case 1:
-            {
-                float bazaSimplu = 13.03F;
-                abonament = new AbonamentSimplu(bazaSimplu, client.getId());
-                break;
-            }
+            Abonament* abonament = getAbonamentSample(tipAbonament, client.getId());
 
-            case 2:
-            {
-                float bazaPremium = 21.56F;
-                std::cout << "Doriti Support 24/7 ? Se percepe inca o taxa de 12 lei in plus! Raspuns: DA/NU"<<'\n';
-                std::string raspuns;
-                std::cin >> raspuns;
-                if (raspuns == "DA")
-                    abonament = new AbonamentPremium(bazaPremium, client.getId(), true);
-                else
-                    abonament = new AbonamentPremium(bazaPremium, client.getId(), false);
-                break;
-            }
-            case 3:
-            {
-                float bazaStudent = 13.0F;
-                std::cout << "Introduceti numarul Legitimatiei de Student: ( >0 )";
-                int numar;
-                std::cin >> numar;
-                abonament = new AbonamentStudent(bazaStudent, client.getId(), numar);
-                break;
-            }
-            default:
-                std::cout << "Tip de abonament invalid.\n";
-                return;
-            }
             abonament->setter_manager(this);
             abonament->calculeazaPret(client.getVechime());
             client.setAbonament(abonament);
