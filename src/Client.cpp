@@ -30,6 +30,7 @@ Client& Client::operator=(const Client& other)
     {
         nume = other.nume;
         vechime = other.vechime;
+        delete abonament;
 
         if (other.abonament)
         {
@@ -50,6 +51,7 @@ Client::~Client()
 
 void Client::setAbonament(Abonament* abon)
 {
+    delete abonament;
     abonament = abon->clone();
 }
 

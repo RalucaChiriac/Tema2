@@ -11,7 +11,7 @@
 Abonament* getAbonamentSample(int tipAbonament, int codClient)
 {
 
-    Abonament* abonament;
+    Abonament* abonament = nullptr;
 
     switch (tipAbonament)
     {
