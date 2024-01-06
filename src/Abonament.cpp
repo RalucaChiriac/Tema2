@@ -3,7 +3,7 @@
 
 int Abonament::numarAbonamente = 0;
 
-Abonament::Abonament(float baza, int idClient) : baza(baza), idClient(idClient), manager(NULL), pret(0.0){
+Abonament::Abonament(float baza, int idClient) : baza(baza), idClient(idClient), pret(0.0){
     if (baza < 0)
     {
         throw ExceptieNumar();
@@ -15,7 +15,7 @@ Abonament::Abonament(float baza, int idClient) : baza(baza), idClient(idClient),
     numarAbonamente++;
 }
 
-Abonament::Abonament(const Abonament& other) : baza(other.baza), idClient(other.idClient), manager(NULL), pret(other.pret) {
+Abonament::Abonament(const Abonament& other) : baza(other.baza), idClient(other.idClient), manager(other.manager), pret(other.pret) {
     numarAbonamente++;
 }
 
@@ -34,8 +34,8 @@ Abonament::~Abonament() {
 
 float Abonament::getVechime(int codClient) {
 
-    if (manager!=NULL)
-        return manager->findClient(codClient).getVechime();
+    if (auto man = manager.lock())
+        return man->findClient(codClient).getVechime();
     else
     {
         throw ExceptieManagerInexistent();
@@ -48,9 +48,9 @@ int Abonament::getter_AbonamenteTotale()
     return numarAbonamente;
 }
 
-void Abonament::setter_manager(ManagerClienti* man)
+void Abonament::setter_manager(std::shared_ptr<ManagerClienti> man)
 {
-   std::shared_ptr<ManagerClienti> my_ptr(man);
+   std::weak_ptr<ManagerClienti> my_ptr = man;
    manager = my_ptr;
 }
 

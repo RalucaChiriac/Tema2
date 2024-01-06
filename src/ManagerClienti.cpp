@@ -4,10 +4,6 @@
 #include "../include/AbonamentSimplu.h"
 #include "../include/AbonamentStudent.h"
 #include "../include/Client.h"
-#include "AbonamentSimplu.cpp"
-#include "AbonamentStudent.cpp"
-#include "AbonamentPremium.cpp"
-#include "Client.cpp"
 #include "../include/MyExceptions.h"
 #include <iostream>
 #include <algorithm>
@@ -90,10 +86,11 @@ void ManagerClienti::adaugaClient()
 
     Abonament* abonament = getAbonamentSample(tipAbonament, codClient);
 
-    abonament->setter_manager(this);
+    abonament->setter_manager(shared_from_this());
     abonament->calculeazaPret(vechime);
 
     Client client = Client(numeClient, codClient, abonament, vechime);
+    delete abonament;
     clienti.push_back(client);
     //delete abonament;
     std::cout<<'\n';
@@ -153,9 +150,10 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
         {
             Abonament* abonament = getAbonamentSample(tipAbonament, client.getId());
 
-            abonament->setter_manager(this);
+            abonament->setter_manager(shared_from_this());
             abonament->calculeazaPret(client.getVechime());
             client.setAbonament(abonament);
+            delete abonament;
 
             std::cout << "Abonamentul pentru -- " << numeClient << " -- a fost schimbat cu succes.\n";
             return;

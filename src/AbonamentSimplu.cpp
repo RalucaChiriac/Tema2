@@ -1,6 +1,5 @@
 #include "../include/AbonamentSimplu.h"
 #include "../include/Abonament.h"
-#include "Abonament.cpp"
 
 int AbonamentSimplu::numarAbonamenteSimplu = 0;
 

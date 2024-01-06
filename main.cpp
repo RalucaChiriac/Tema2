@@ -1,5 +1,4 @@
 #include "include/ManagerClienti.h"
-#include "src/ManagerClienti.cpp"
 #include "include/AbonamentSimplu.h"
 #include "include/AbonamentPremium.h"
 #include "include/AbonamentStudent.h"
@@ -7,12 +6,12 @@
 
 int main()
 {
-    ManagerClienti manager;
+    auto manager = std::make_shared<ManagerClienti>();
 
     int optiune;
     do
     {
-        manager.afiseazaMeniu();
+        manager->afiseazaMeniu();
         std::cin >> optiune;
 
 
@@ -39,7 +38,7 @@ int main()
             {
             case 1:
             {
-                manager.adaugaClient();
+                manager->adaugaClient();
                 break;
             }
 
@@ -48,12 +47,12 @@ int main()
                 std::cout << "Introduceti numele clientului de sters: ";
                 std::string numeClient;
                 std::cin >> numeClient;
-                manager.stergeClient(numeClient);
+                manager->stergeClient(numeClient);
                 break;
             }
 
             case 3:
-                manager.listeazaClienti();
+                manager->listeazaClienti();
                 break;
 
             case 4:
@@ -66,18 +65,18 @@ int main()
                 int tipAbonament;
                 std::cin >> tipAbonament;
 
-                manager.schimbaAbonament(numeClient, tipAbonament);
+                manager->schimbaAbonament(numeClient, tipAbonament);
                 break;
             }
 
             case 5:
             {
-                manager.afiseazaStatistica();
+                manager->afiseazaStatistica();
                 break;
             }
 
             case 6:
-                manager.reseteazaProgram();
+                manager->reseteazaProgram();
                 break;
             case 7:
                 std::cout << "Programul se inchide.\n";

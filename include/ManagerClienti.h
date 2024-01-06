@@ -4,7 +4,7 @@
 #include "Client.h"
 #include <vector>
 
-class ManagerClienti
+class ManagerClienti : public std::enable_shared_from_this<ManagerClienti>
 {
 private:
     std::vector<Client> clienti;

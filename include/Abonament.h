@@ -2,7 +2,6 @@
 #define ABONAMENT_H_INCLUDED
 
 #include <iostream>
-#include "ManagerClienti.h"
 #include "MyExceptions.h"
 #include <memory>
 
@@ -13,7 +12,7 @@ class Abonament {
 protected:
     float baza;
     int idClient;
-    std::shared_ptr<ManagerClienti> manager;
+    std::weak_ptr<ManagerClienti> manager;
     float pret;
     static int numarAbonamente;
     virtual void afisareTip() const = 0;
@@ -35,7 +34,7 @@ public:
 
     static int getter_AbonamenteTotale();
     float getVechime(int codClient);
-    void setter_manager (ManagerClienti* man);
+    void setter_manager (std::shared_ptr<ManagerClienti> man);
     int getter_idClient();
 
 };
