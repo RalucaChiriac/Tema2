@@ -53,8 +53,3 @@ void Abonament::setter_manager(std::shared_ptr<ManagerClienti> man)
    std::weak_ptr<ManagerClienti> my_ptr = man;
    manager = my_ptr;
 }
-
-int Abonament::getter_idClient()
-{
-    return idClient;
-}

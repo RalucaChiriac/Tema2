@@ -28,8 +28,6 @@ public:
     // Statistica abonamente
     void afiseazaStatistica() const;
 
-    std::vector<Client>& getterClienti();
-
     Client& findClient(int codClient);
 
     // afiseaza meniul

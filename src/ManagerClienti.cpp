@@ -43,10 +43,8 @@ Abonament* getAbonamentSample(int tipAbonament, int codClient)
         abonament = new AbonamentStudent(bazaStudent, codClient, numar);
         break;
     }
-    default:
-        std::cout << "Tip de abonament invalid.\n";
-        break;
     }
+
     return abonament;
 }
 
@@ -168,10 +166,7 @@ void ManagerClienti::reseteazaProgram()
     std::cout << "Programul a fost resetat cu succes.\n";
 }
 
-std::vector<Client>& ManagerClienti::getterClienti()
-{
-    return clienti;
-}
+
 
 void ManagerClienti::afiseazaStatistica() const
 {

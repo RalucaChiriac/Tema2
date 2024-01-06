@@ -35,8 +35,6 @@ public:
     static int getter_AbonamenteTotale();
     float getVechime(int codClient);
     void setter_manager (std::shared_ptr<ManagerClienti> man);
-    int getter_idClient();
-
 };
 
 #endif // ABONAMENT_H_INCLUDED
