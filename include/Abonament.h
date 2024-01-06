@@ -17,6 +17,7 @@ protected:
     float pret;
     static int numarAbonamente;
     virtual void afisareTip() const = 0;
+    virtual void afisareDetalii() const = 0;
 
 public:
     Abonament(float baza, int idClient);
@@ -29,7 +30,6 @@ public:
         return os;
     }
 
-    virtual void afisareDetalii() const = 0;
     virtual void calculeazaPret(float vechime = -1) = 0;
     virtual Abonament* clone() const = 0;
 

@@ -12,10 +12,10 @@
 #include <iostream>
 #include <algorithm>
 
-Abonament& getAbonamentSample(int tipAbonament, int codClient)
+Abonament* getAbonamentSample(int tipAbonament, int codClient)
 {
 
-    Abonament* abonament = nullptr;
+    Abonament* abonament;
 
     switch (tipAbonament)
     {
@@ -51,7 +51,7 @@ Abonament& getAbonamentSample(int tipAbonament, int codClient)
         std::cout << "Tip de abonament invalid.\n";
         break;
     }
-    return* abonament;
+    return abonament;
 }
 
 
@@ -88,7 +88,7 @@ void ManagerClienti::adaugaClient()
     int tipAbonament;
     std::cin >> tipAbonament;
 
-    Abonament* abonament = &getAbonamentSample(tipAbonament, codClient);
+    Abonament* abonament = getAbonamentSample(tipAbonament, codClient);
 
     abonament->setter_manager(this);
     abonament->calculeazaPret(vechime);
@@ -151,7 +151,7 @@ void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbon
     {
         if (client.getNume() == numeClient)
         {
-            Abonament* abonament = &getAbonamentSample(tipAbonament, client.getId());
+            Abonament* abonament = getAbonamentSample(tipAbonament, client.getId());
 
             abonament->setter_manager(this);
             abonament->calculeazaPret(client.getVechime());
