@@ -8,10 +8,10 @@
 #include <iostream>
 #include <algorithm>
 
-Abonament* getAbonamentSample(int tipAbonament, int codClient)
+Abonament *getAbonamentSample(int tipAbonament, int codClient)
 {
 
-    Abonament* abonament = nullptr;
+    Abonament *abonament = nullptr;
 
     switch (tipAbonament)
     {
@@ -25,7 +25,7 @@ Abonament* getAbonamentSample(int tipAbonament, int codClient)
     case 2:
     {
         float bazaPremium = 21.56F;
-        std::cout << "Doriti Support 24/7 ? Se percepe inca o taxa de 12 lei in plus! Raspuns: DA/NU"<<'\n';
+        std::cout << "Doriti Support 24/7 ? Se percepe inca o taxa de 12 lei in plus! Raspuns: DA/NU" << '\n';
         std::string raspuns;
         std::cin >> raspuns;
         if (raspuns == "DA")
@@ -47,9 +47,6 @@ Abonament* getAbonamentSample(int tipAbonament, int codClient)
 
     return abonament;
 }
-
-
-
 
 void ManagerClienti::afiseazaMeniu() const
 {
@@ -82,7 +79,7 @@ void ManagerClienti::adaugaClient()
     int tipAbonament;
     std::cin >> tipAbonament;
 
-    Abonament* abonament = getAbonamentSample(tipAbonament, codClient);
+    Abonament *abonament = getAbonamentSample(tipAbonament, codClient);
 
     abonament->setter_manager(shared_from_this());
     abonament->calculeazaPret(vechime);
@@ -90,19 +87,17 @@ void ManagerClienti::adaugaClient()
     Client client = Client(numeClient, codClient, abonament, vechime);
     delete abonament;
     clienti.push_back(client);
-    //delete abonament;
-    std::cout<<'\n';
-    std::cout<<'\n';
-    std::cout<<'\n';
+    // delete abonament;
+    std::cout << '\n';
+    std::cout << '\n';
+    std::cout << '\n';
     std::cout << "Clientul a fost adaugat cu succes.\n";
 }
 
-void ManagerClienti::stergeClient(const std::string& numeClient)
+void ManagerClienti::stergeClient(const std::string &numeClient)
 {
-    auto it = std::remove_if(clienti.begin(), clienti.end(), [numeClient](const Client& client)
-    {
-        return client.getNume() == numeClient;
-    });
+    auto it = std::remove_if(clienti.begin(), clienti.end(), [numeClient](const Client &client)
+                             { return client.getNume() == numeClient; });
 
     if (it != clienti.end())
     {
@@ -114,21 +109,19 @@ void ManagerClienti::stergeClient(const std::string& numeClient)
         throw ExceptieClientInexistent();
 }
 
-
 void ManagerClienti::listeazaClienti() const
 {
     std::cout << "Lista de clienti:\n";
-    for (const auto& client : clienti)
+    for (const auto &client : clienti)
     {
-        std::cout<<client;
+        std::cout << client;
         std::cout << "\n";
     }
 }
 
-
-Client& ManagerClienti::findClient(int codClient)
+Client &ManagerClienti::findClient(int codClient)
 {
-    for (auto& client : clienti)
+    for (auto &client : clienti)
     {
         if (client.getId() == codClient)
         {
@@ -138,15 +131,14 @@ Client& ManagerClienti::findClient(int codClient)
     throw ExceptieClientInexistent();
 }
 
-
-void ManagerClienti::schimbaAbonament(const std::string& numeClient, int tipAbonament)
+void ManagerClienti::schimbaAbonament(const std::string &numeClient, int tipAbonament)
 {
 
-    for (auto& client : clienti)
+    for (auto &client : clienti)
     {
         if (client.getNume() == numeClient)
         {
-            Abonament* abonament = getAbonamentSample(tipAbonament, client.getId());
+            Abonament *abonament = getAbonamentSample(tipAbonament, client.getId());
 
             abonament->setter_manager(shared_from_this());
             abonament->calculeazaPret(client.getVechime());
@@ -166,13 +158,12 @@ void ManagerClienti::reseteazaProgram()
     std::cout << "Programul a fost resetat cu succes.\n";
 }
 
-
-
 void ManagerClienti::afiseazaStatistica() const
 {
-    std::cout<<"   Statistica: "<<"\n";
-    std::cout<<"Numar total de abonamente: "<<Abonament::getter_AbonamenteTotale()<<'\n';
-    std::cout<<"Numar de abonamente Simple: "<<AbonamentSimplu::getNumarAbonamenteSimplu()<<'\n';
-    std::cout<<"Numar de abonamente Premium: "<<AbonamentPremium::getNumarAbonamentePremium()<<'\n';
-    std::cout<<"Numar de abonamente de Student: "<<AbonamentStudent::getNumarAbonamenteStudent()<<'\n';
+    std::cout << "   Statistica: "
+              << "\n";
+    std::cout << "Numar total de abonamente: " << Abonament::getter_AbonamenteTotale() << '\n';
+    std::cout << "Numar de abonamente Simple: " << AbonamentSimplu::getNumarAbonamenteSimplu() << '\n';
+    std::cout << "Numar de abonamente Premium: " << AbonamentPremium::getNumarAbonamentePremium() << '\n';
+    std::cout << "Numar de abonamente de Student: " << AbonamentStudent::getNumarAbonamenteStudent() << '\n';
 }

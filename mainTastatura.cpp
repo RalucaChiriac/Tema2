@@ -1,39 +1,46 @@
+#include <fstream>
+#include <iostream>
 #include "include/ManagerClienti.h"
-#include "include/AbonamentSimplu.h"
-#include "include/AbonamentPremium.h"
-#include "include/AbonamentStudent.h"
 #include "include/MyExceptions.h"
-#include "include/Abonament.h"
-#include "include/Client.h"
-#include <limits>
 
 int main()
 {
     auto manager = std::make_shared<ManagerClienti>();
 
+    // Open the file for reading
+    std::ifstream inputFile("tastatura.txt");
+
+    if (!inputFile.is_open())
+    {
+        std::cerr << "Error opening file 'tastatura.txt'" << std::endl;
+        return 1;
+    }
+
     int optiune;
+
     do
     {
         manager->afiseazaMeniu();
-        std::cin >> optiune;
+        // Read from the file instead of std::cin
+        inputFile >> optiune;
 
-
-        for (int i=0; i<10; i++)
-            std::cout<<std::endl;
+        for (int i = 0; i < 10; i++)
+            std::cout << std::endl;
 
         try
         {
-            if (std::cin.fail())
+            if (inputFile.fail())
             {
-                std::cin.clear();
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                inputFile.clear();
+                inputFile.ignore(10000, '\n'); // Use a large number as the limit
 
                 std::cout << "Va rugam introduceti un numar valabil!" << std::endl;
                 continue;
             }
-            if (optiune<1 || optiune > 7)
+
+            if (optiune < 1 || optiune > 7)
             {
-                std::cout<<"Introduceti va rugam o optiune valida!"<<std::endl;
+                std::cout << "Introduceti va rugam o optiune valida!" << std::endl;
                 continue;
             }
 
@@ -49,7 +56,7 @@ int main()
             {
                 std::cout << "Introduceti numele clientului de sters: ";
                 std::string numeClient;
-                std::cin >> numeClient;
+                inputFile >> numeClient;
                 manager->stergeClient(numeClient);
                 break;
             }
@@ -62,11 +69,11 @@ int main()
             {
                 std::cout << "Introduceti numele clientului pentru schimbare abonament: ";
                 std::string numeClient;
-                std::cin >> numeClient;
+                inputFile >> numeClient;
 
                 std::cout << "Alegeti tipul de abonament (1. Simplu / 2. Premium / 3. Student): ";
                 int tipAbonament;
-                std::cin >> tipAbonament;
+                inputFile >> tipAbonament;
 
                 manager->schimbaAbonament(numeClient, tipAbonament);
                 break;
@@ -81,6 +88,7 @@ int main()
             case 6:
                 manager->reseteazaProgram();
                 break;
+
             case 7:
                 std::cout << "Programul se inchide.\n";
                 break;
@@ -89,18 +97,21 @@ int main()
                 std::cout << "Optiune invalida. Va rugam alegeti o optiune valida.\n";
                 break;
             }
+
         }
-        catch (const ExceptieGenerala& e)
+        catch (const ExceptieGenerala &e)
         {
             std::cerr << "\n\nEroare: " << e.what() << std::endl;
             continue;
         }
 
-        for (int i=0; i<10; i++)
-            std::cout<<std::endl;
+        for (int i = 0; i < 10; i++)
+            std::cout << std::endl;
 
-    }
-    while (optiune != 7);
+    } while (optiune != 7);
+
+    // Close the file
+    inputFile.close();
 
     return 0;
 }
